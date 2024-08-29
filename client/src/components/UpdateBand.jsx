@@ -4,24 +4,24 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-const UpdatePatient = (props) => {
+const UpdateBand = (props) => {
     // Calling id from app.jsx from the routes
     const {id} = useParams();
     const [name, setName] = useState("");
-    const [age, setAge] = useState("");
-    const [symptoms, setSymptoms] = useState("");
+    const [gigRate, setGigRate] = useState("");
+    const [achievements, setAchievements] = useState("");
     const [errors, setErrors] = useState({})
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/findOnePatient/${id}`)
+        axios.get(`http://localhost:8000/api/findOneBand/${id}`)
         .then((res) => {
             console.log(res);
             console.log(res.data);
             setName(res.data.name)
-            setAge(res.data.age)
-            setSymptoms(res.data.symptoms)
+            setGigRate(res.data.gigRate)
+            setAchievements(res.data.achievements)
         })
         .catch ((err) => {
             console.log(err);
@@ -32,15 +32,15 @@ const UpdatePatient = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8000/api/updatePatient/${id}`, {
+        axios.put(`http://localhost:8000/api/updateBand/${id}`, {
             name,
-            age,
-            symptoms
+            gigRate,
+            achievements
         })
         .then((res) => {
             console.log(res);
             console.log(res.data)
-            navigate(`/patient/${id}`)
+            navigate(`/band/${id}`)
         })
         .catch ((err) => {
             console.log(err);
@@ -53,9 +53,9 @@ const UpdatePatient = (props) => {
         // UPDATE FORM
 
         <div className='update-form'>
-            <Link to={"/displayAllPatients"}><button className='home-btn'>Home</button></Link>
-            <Link to={`/patient/${id}`}><button className='details-btn'>Patient Details</button></Link>
-            <h2>Update Patient</h2>
+            <Link to={"/displayAllBands"}><button className='home-btn'>Home</button></Link>
+            <Link to={`/band/${id}`}><button className='details-btn'>Band Details</button></Link>
+            <h2>Update Band</h2>
             <form onSubmit={submitHandler}>
 
                 <div className='form-fields'>
@@ -71,11 +71,11 @@ const UpdatePatient = (props) => {
                 <br/>
 
                 <div className='form-fields'>
-                    <label>Age: </label>
-                    <input type="number" onChange={(e) => setAge(e.target.value)} value={age}/>
+                    <label>Gig Rate: </label>
+                    <input type="number" onChange={(e) => setGigRate(e.target.value)} value={gigRate}/>
                     {
-                    errors.age?
-                    <p className='errors'>{errors.age.message}</p>:
+                    errors.gigRate?
+                    <p className='errors'>{errors.gigRate.message}</p>:
                     null
                 }
                 </div>
@@ -83,18 +83,18 @@ const UpdatePatient = (props) => {
                 <br/>
 
                 <div className='form-fields'>
-                <label>Symptoms: </label>
-                    <textarea rows="4" cols="50" onChange={(e) => setSymptoms(e.target.value)} value={symptoms}/>
+                <label>Achievements: </label>
+                    <textarea rows="4" cols="50" onChange={(e) => setAchievements(e.target.value)} value={achievements}/>
                     {
-                    errors.symptoms?
-                    <p className='errors'>{errors.symptoms.message}</p>:
+                    errors.achievements?
+                    <p className='errors'>{errors.achievements.message}</p>:
                     null
                 }
                 </div>
 
                 <br/>
 
-                <button className='submit-btn'>Update</button>
+                <button className='submit-btn'>Update Band!</button>
 
             </form>
 
@@ -102,4 +102,4 @@ const UpdatePatient = (props) => {
     )
 }
 
-export default UpdatePatient;
+export default UpdateBand;

@@ -1,35 +1,32 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import AdmitPatient from './components/AdmitPatient';
-import DisplayAllPatients from './components/DisplayAllPatients';
-import DisplayOnePatient from './components/DisplayOnePatient';
+import { useState } from 'react';
+import './App.css';
+import CreateBand from './components/CreateBand';
+import DisplayAllBands from './components/DisplayAllBands';
+import DisplayOneBand from './components/DisplayOneBand';
 import HomePage from './views/HomePage';
-import UpdatePatient from './components/UpdatePatient';
+import UpdateBand from './components/UpdateBand';
 import Login from './components/Login';
 import Register from './components/Register';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
-
-// Can't display two components at the same path so import 
-// a VIEW component that contains the two components to display together
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
-  const [patientList, setPatientList] = useState([]);
+  const [bandList, setBandList] = useState([]);
   
   return (
     <>
-    <h1>CareSync</h1>
-    <BrowserRouter>
+      <h1>Bad Band Names</h1>
+      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Register />} />
-          <Route path='/login' element={<Login/>}/>
-          <Route path="/admitPatient" element={<AdmitPatient patientList={patientList} setPatientList={setPatientList} />}/>
-          <Route path="/patient/:id" element={<DisplayOnePatient/>}/>
-          <Route path="/patient/updatePatient/:id" element={<UpdatePatient/>}/>
-          <Route path='/displayAllPatients' element={<HomePage/>}/>
+          <Route path='/login' element={<Login />} />
+          <Route path='/createBand' element={<CreateBand bandList={bandList} setBandList={setBandList} />} />
+          <Route path='/band/:id' element={<DisplayOneBand />} />
+          <Route path='/band/:id/edit' element={<UpdateBand />} />
+          <Route path='/DisplayAllBands' element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
 export default App;

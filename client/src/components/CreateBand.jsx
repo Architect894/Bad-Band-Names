@@ -3,30 +3,30 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const AdmitPatient = (props) => {
-    const{patientList, setPatientList} = props;
+const CreateBand = (props) => {
+    const{bandList, setBandList} = props;
 
     const [name, setName] = useState("");
-    const [age, setAge] = useState("");
-    const [symptoms, setSymptoms] = useState("");
+    const [gigRate, setGigRate] = useState("");
+    const [achievements, setAchievements] = useState("");
     const [errors, setErrors] = useState({})
     const navigate = useNavigate();
 
     const submitHandler = (e) => {
         e.preventDefault()
-        const newPatient = {name, age, symptoms}
-        axios.post("http://localhost:8000/api/admitPatient", newPatient)
+        const newBand = {name, gigRate, achievements}
+        axios.post("http://localhost:8000/api/createBand", newBand)
             .then((res) => {
                 console.log(res)
                 console.log(res.data);
                 // These next 3 lines will reset the form to empty on refresh or submit
                 setName("");
-                setAge("");
-                setSymptoms("");
+                setGigRate("");
+                setAchievements("");
                 setErrors({})
                 // Using the spread operator(...) to make a copy of everything inside state
-                setPatientList([...patientList, res.data])
-                navigate('/displayAllPatients')
+                setBandList([...bandList, res.data])
+                navigate('/displayAllBands')
             })
             .catch((err) => {
                 console.log(err.response.data.errors);
@@ -39,12 +39,12 @@ const AdmitPatient = (props) => {
         // FORM
 
         <div className='admit-form'>
-            <Link to={"/displayAllPatients"}><button className='home-btn'>Home</button></Link>
-            <h2>Admit Patient</h2>
+            <Link to={"/displayAllBands"}><button className='home-btn'>Home</button></Link>
+            <h2>Create Band</h2>
             <form onSubmit={submitHandler}>
 
                 <div className='form-fields'>
-                    <label>Name: </label>
+                    <label>Band Name: </label>
                     <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
                     {
                     errors.name?
@@ -56,11 +56,11 @@ const AdmitPatient = (props) => {
                 <br/>
 
                 <div className='form-fields'>
-                    <label>Age: </label>
-                    <input type="number" onChange={(e) => setAge(e.target.value)} value={age}/>
+                    <label>Gig Rate: $ </label>
+                    <input type="number" onChange={(e) => setGigRate(e.target.value)} value={gigRate}/>
                     {
-                    errors.age?
-                    <p className='errors'>{errors.age.message}</p>:
+                    errors.gigRate?
+                    <p className='errors'>{errors.gigRate.message}</p>:
                     null
                 }
                 </div>
@@ -68,21 +68,21 @@ const AdmitPatient = (props) => {
                 <br/>
 
                 <div className='form-fields'>
-                <label>Symptoms: </label>
-                    <textarea rows="4" cols="50" onChange={(e) => setSymptoms(e.target.value)} value={symptoms}/>
+                <label>Achievements </label>
+                    <textarea rows="4" cols="50" onChange={(e) => setAchievements(e.target.value)} value={achievements}/>
                     {
-                    errors.symptoms?
-                    <p className='errors'>{errors.symptoms.message}</p>:
+                    errors.achievements?
+                    <p className='errors'>{errors.achievements.message}</p>:
                     null
                 }
                 </div>
 
                 <br/>
 
-                <button className='submit-btn'>Admit Patient</button>
+                <button className='submit-btn'>Create Band</button>
 
             </form>
         </div>
 )}
 
-export default AdmitPatient;
+export default CreateBand;

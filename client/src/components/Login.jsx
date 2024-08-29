@@ -11,7 +11,7 @@ const Login = (props) => {
         const loginUser = {email, password}
         axios.post('http://localhost:8000/api/loginUser', loginUser, {withCredentials:true})
             .then((res) => {
-                navigate('/displayAllPatients')
+                navigate('/displayAllBands')
             })
             .catch((err) => {
                 console.log(err);

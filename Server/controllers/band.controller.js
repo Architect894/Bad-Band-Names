@@ -1,53 +1,53 @@
-const Patient = require('../models/patient.model')
+const Band = require('../models/band.model')
 
 module.exports = {
     // Read All
-    findAllPatients: (req, res) => {
-        Patient.find()
-            .then((allPatients) => {
-                res.status(200).json(allPatients)
+    findAllBands: (req, res) => {
+        Band.find()
+            .then((allBands) => {
+                res.status(200).json(allBands)
             })
             .catch((err) => {
                 res.status(500).json(err)
             })
     },
     // Read One (Finding by _id)
-    findOnePatient: (req, res) => {
+    findOneBand: (req, res) => {
         console.log(req.params);
-        Patient.findOne({_id: req.params.id})
-            .then((onePatient) => {
-                res.status(200).json(onePatient)
+        Band.findOne({_id: req.params.id})
+            .then((oneBand) => {
+                res.status(200).json(oneBand)
             })
             .catch((err) => {
                 res.status(500).json(err)
             })
     },
     // Create
-    admitPatient: (req, res) => {
+    createBand: (req, res) => {
         console.log(req.body);
-        Patient.create(req.body)
-            .then((newPatient) => {
-                res.status(201).json(newPatient)
+        Band.create(req.body)
+            .then((newBand) => {
+                res.status(201).json(newBand)
             })
             .catch((err) => {
                 res.status(500).json(err)
             })
     },
     // Update (Finding by _id)
-    updatePatient: (req, res) => {
-        Patient.findOneAndUpdate({ _id: req.params.id },
+    updateBand: (req, res) => {
+        Band.findOneAndUpdate({ _id: req.params.id },
             req.body,
             { new: true, runValidators: true })
-            .then((updatedPatient) => {
-                res.json(updatedPatient)
+            .then((updatedBand) => {
+                res.json(updatedBand)
             })
             .catch((err) => {
                 res.status(500).json(err)
             })
     },
     // Delete (Finding by _id)
-    dischargePatient: (req, res) => {
-        Patient.deleteOne({_id: req.params.id})
+    deleteBand: (req, res) => {
+        Band.deleteOne({_id: req.params.id})
             .then((result) => {
                 res.status(201).json(result)
             })

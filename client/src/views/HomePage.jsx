@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import DisplayAllPatients from '../components/DisplayAllPatients';
-import AdmitPatient from '../components/AdmitPatient';
+import DisplayAllBands from '../components/DisplayAllBands';
+import CreateBand from '../components/CreateBand';
 
 
 
 const HomePage = () => {
-    const [patientList, setPatientList] = useState([]);
+    const [bandList, setBandList] = useState([]);
 
     return (
         <>
-            <DisplayAllPatients patientList = {patientList} setPatientList = {setPatientList}/>
+            <DisplayAllBands bandList = {bandList} setBandList = {setBandList}/>
         </>
 )}
 
